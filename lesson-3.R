@@ -1,9 +1,11 @@
 # Database connections from R
 
 library(RSQLite)
-con <- dbConnect(...)
+con <- dbConnect(SQLite(),"data/portal.sqlite")
 dbGetQuery(con, "pragma foreign_keys = on")
-...
+dbListTables(con)
+
+
 
 # Two ways to access data
 
@@ -22,7 +24,9 @@ dbGetQuery(con, "select species_id, weight
 
 # Primary keys
 
-dbGetQuery(con, ...)
+dbGetQuery(con, "insert into plots
+  (plot_id, plot_type)
+  values(1, 'Control')")
 
 # Foreign keys
 
