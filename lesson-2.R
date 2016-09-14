@@ -82,9 +82,9 @@ requirements <- c('dplyr',
                   'sp',
                   'tidyr',
                   'tmap')
-missing <- setdiff(...,
+missing <- setdiff(requirements,
                    rownames(installed.packages()))
 
-if (...) {
+if (length(missing)!=0) {
   install.packages(missing)
 }
