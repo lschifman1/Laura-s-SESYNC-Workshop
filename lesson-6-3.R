@@ -25,16 +25,17 @@ server <- function(input, output) {
     species  %>%
       filter(species_id == input[["pick_species"]]) %>% 
       select(genus, species) %>%
-    paste(collapse = ' ')
+      paste(collapse = ' ')
   )
   output[["species_plot"]] <- renderPlot(
     surveys  %>%
-    filter(species_id == input[["pick_species"]]) %>%
-    ggplot(aes(year)) +
-    geom_bar()
+      filter(species_id == input[["pick_species"]]) %>%
+      ggplot(aes(year)) +
+      geom_bar()
   )
   output[["species_table"]] <-renderTable(
-    surveys %>%filter(species_id == input[["pick_species"]]) %>% summarize(species_id, year)
+    surveys %>% filter(species_id == input[["pick_species"]]) %>% 
+      summarize(species_id, year)
   )
 }
 
