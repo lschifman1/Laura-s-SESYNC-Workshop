@@ -12,7 +12,11 @@ in1 <- selectInput("pick_species",
                    choices = unique(species[["species_id"]]))
 out1 <- textOutput("species_name")
 out2 <- plotOutput("species_plot")
-tab <- tabPanel("Species", in1, out1, out2)
+out3 <- tableOutput("species_table")
+side <- sidebarPanel("Options", in1, out1)
+main <- mainPanel(out2,out3)
+tab <- tabPanel("Species", 
+                sidebarLayout(side, main))
 ui <- navbarPage(title = "Portal Project", tab)
 
 # Server
@@ -28,6 +32,9 @@ server <- function(input, output) {
     filter(species_id == input[["pick_species"]]) %>%
     ggplot(aes(year)) +
     geom_bar()
+  )
+  output[["species_table"]] <-renderTable(
+    surveys %>%filter(species_id == input[["pick_species"]]) %>% summarize(species_id, year)
   )
 }
 
