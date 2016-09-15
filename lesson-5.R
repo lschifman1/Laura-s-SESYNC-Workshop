@@ -85,19 +85,19 @@ year_wgt
 ## Exercise 2
 
 ggplot(data=surveys_DM, 
-       aes(x = weight,
-           fill=sex)) +
-geom_histogram()
+       aes(x = weight, fill=sex)) +
+geom_histogram(binwidth=3)
+
 
 ## Axes, labels and themes
 
 histo <- ggplot(data = surveys_dm,
                 aes(x = weight, fill = sex)) +
-  geom_...
+  geom_histogram(binwidth=3, color="white")
 histo
 
 histo <- histo +
-  ...(title = "Dipodomys merriami weight distribution",
+  labs(title = "Dipodomys merriami weight distribution",
        x = "Weight (g)",
        y = "Count") +
   scale_x_continuous(limits = c(20, 60),
@@ -107,10 +107,10 @@ histo
 histo <- histo +
   theme_bw() +
   theme(legend.position = c(0.2, 0.5),
-        plot.title = ...,
-        ... = element_text(...),
-        ... = element_text(size = 13, vjust = 0))
-histo
+        plot.title = element_text(face="bold",vjust=2),
+        axis.title.y = element_text(size=13,vjust=1),
+        axis.title.x = element_text(size = 13, vjust = 0))
+histo+scale_fill_manual(values=c("coral","seagreen"))
 
 ## Facets
 
@@ -119,12 +119,14 @@ levels(surveys_dm$month) <- c("January", "February", "March", "April", "May", "J
                               "July", "August", "September", "October", "November", "December")
 
 ggplot(data = surveys_dm,
-       aes(x = weight)) +
+       aes(x = weight,fill=sex)) +
   geom_histogram() +
-  ...
+  facet_wrap(~month)+
+  scale_fill_manual(values=c("coral","seagreen"))+
   labs(title = "DM weight distribution by month",
        x = "Count",
-       y = "Weight (g)")
+       y = "Weight (g)")+
+
 
 ggplot(data = surveys_dm,
        aes(x = weight, fill = month)) +
